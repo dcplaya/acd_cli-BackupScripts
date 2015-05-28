@@ -13,8 +13,12 @@ $acd_cli sync
 
 # Find all files in the dump folder and parse out which VMs they belong to
 find /mnt/Proxmox_VM_ISO/dump -type f -name '*' -print0 | while IFS= read -r -d '' file; do
-   	vm_number=${file:37:3}
+
+        vm_name=${file#*-*-}
+   	vm_number=${vm_name:0:3}
         printf '%s\n' "Making $vm_number Directory In ACD"
+
+
 
 	# Making directories for each VM found in the dump folder
 	$acd_cli mkdir /Proxmox/Backups/$vm_number
