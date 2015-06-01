@@ -1,0 +1,51 @@
+#!/bin/bash
+# This script will upload all files in /mnt/TVShows to Amazon Cloud Drive using acd_cli to /Video/TV Shows
+# It will skip already uploaded files by comparing hashes
+
+#Set to true if you want to run acd_cli with verbose
+verbose=true
+
+#Set location of acd_cli
+acd_cli=/home/drew/acd_cli/acd_cli.py
+
+#Set local location of files to upload. Everything in this folder will be uploaded but no the folder itself
+local_location=/mnt/ERLBackups/erl/commits/
+
+#Set remote location on ACD
+remote_location=/ERL/Commits/
+
+#Set location of where to store log file as well as the name
+log_location=/home/drew/acd_cli-BackupScripts/ERLCommits_Upload.log
+
+
+
+
+
+
+# Start of actual code!
+################################################################################################################################################
+#Sync to make sure we have the most up to date file structure
+"$acd_cli" sync
+
+# Check for target folder location, create it if it doesn't exist
+if [ -n $("$acd_cli" resolve "$remote_location") ]
+then
+	echo "Creating "$remote_location" In Amazon Cloud Drive"
+	"$acd_cli" create "$remote_location"
+else
+	echo ""$remote_location" Already Exists"
+fi
+
+
+if [ "$verbose" == true ]				
+then
+	echo "Verbose enabled!"
+	"$acd_cli" -v sync										# Syncs with ACD before uploading to make sure we have the most up to date info
+	"$acd_cli" -v upload "$local_location"* "$remote_location" 2> >(tee "$log_location" >&2)	# Starts uploading with the locations set at the top of this script
+else
+	"$acd_cli" -v sync                                              				# Syncs with ACD before uploading to make sure we have the most up to date info
+	"$acd_cli" -v upload "$local_location"* "$remote_location"       				# Starts uploading with the locations set at the top of this script
+fi
+
+
+exit 0

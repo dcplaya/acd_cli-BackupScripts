@@ -26,14 +26,3 @@ find /mnt/Proxmox_VM_ISO/dump -type f -name '*' -print0 | while IFS= read -r -d 
 	# Start uploading all the VM files to the respective VM folders
 	$acd_cli upload $file /Proxmox/Backups/$vm_number/
 done
-
-
-#string=$(find /mnt/Proxmox_VM_ISO/dump -name '*109*')
-#print $string
-
-
-# Make the directory if it doesnt exist
-#$acd_cli mkdir /Proxmox/Backups/109
-
-# Start upload!
-#$acd_cli upload /mnt/Proxmox_VM_ISO/*109* /Proxmox/Backups/109/
