@@ -19,7 +19,7 @@ maxsizeGB=50
 maxsize=`expr $maxsizeGB \* 1073741824`
 
 # Sync ACD first. This is a quick sync, not a full sync
-$acd_cli sync
+python3 $acd_cli sync
 
 # Find all files in the dump folder and parse out which VMs they belong to
 find $backups -type f -name '*' -print0 | while IFS= read -r -d '' file; do
@@ -31,7 +31,7 @@ find $backups -type f -name '*' -print0 | while IFS= read -r -d '' file; do
 
 
 	# Making directories for each VM found in the dump folder
-	$acd_cli mkdir /Proxmox/Backups/$vm_number
+	python3 $acd_cli mkdir /Proxmox/Backups/$vm_number
 
 	# Check the file size limit, dont upload if larger than specified size
 	actualsize=$(wc -c <"$file")
@@ -42,7 +42,7 @@ find $backups -type f -name '*' -print0 | while IFS= read -r -d '' file; do
 		
 		# Start uploading all the VM files to the respective VM folders
 		printf '%s\n' "[INFO] - File size $actualsizeGB GB < $maxsizeGB GB"
-		$acd_cli upload $file /Proxmox/Backups/$vm_number/
+		python4 $acd_cli upload $file /Proxmox/Backups/$vm_number/
 	else
 		printf '%s\n' "[WARNING] - File size larger than specified"
 	fi

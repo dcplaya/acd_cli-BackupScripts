@@ -25,13 +25,13 @@ log_location=/home/drew/acd_cli-BackupScripts/ERLCommits_Upload.log
 # Start of actual code!
 ################################################################################################################################################
 #Sync to make sure we have the most up to date file structure
-"$acd_cli" sync
+python3 "$acd_cli" sync
 
 # Check for target folder location, create it if it doesn't exist
-if [ -n $("$acd_cli" resolve "$remote_location") ]
+if [ -n $(python3 "$acd_cli" resolve "$remote_location") ]
 then
 	echo "Creating "$remote_location" In Amazon Cloud Drive"
-	"$acd_cli" create "$remote_location"
+	python3 "$acd_cli" create "$remote_location"
 else
 	echo ""$remote_location" Already Exists"
 fi
@@ -40,11 +40,11 @@ fi
 if [ "$verbose" == true ]				
 then
 	echo "Verbose enabled!"
-	"$acd_cli" -v sync										# Syncs with ACD before uploading to make sure we have the most up to date info
-	"$acd_cli" -v upload "$local_location"* "$remote_location" 2> >(tee "$log_location" >&2)	# Starts uploading with the locations set at the top of this script
+	python3 "$acd_cli" -v sync										# Syncs with ACD before uploading to make sure we have the most up to date info
+	python3 "$acd_cli" -v upload "$local_location"* "$remote_location" 2> >(tee "$log_location" >&2)	# Starts uploading with the locations set at the top of this script
 else
-	"$acd_cli" -v sync                                              				# Syncs with ACD before uploading to make sure we have the most up to date info
-	"$acd_cli" -v upload "$local_location"* "$remote_location"       				# Starts uploading with the locations set at the top of this script
+	python3 "$acd_cli" -v sync                                              				# Syncs with ACD before uploading to make sure we have the most up to date info
+	python3 "$acd_cli" -v upload "$local_location"* "$remote_location"       				# Starts uploading with the locations set at the top of this script
 fi
 
 

@@ -30,11 +30,11 @@ log_location=/home/drew/acd_cli-BackupScripts/TVShows_Upload.log
 if [ "$verbose" == true ]				
 then
 	echo "Verbose enabled!"
-	"$acd_cli" -v sync										# Syncs with ACD before uploading to make sure we have the most up to date info
-	"$acd_cli" -v upload -x 4 "$local_location"* "$remote_location" 2> >(tee "$log_location" >&2)	# Starts uploading with the locations set at the top of this script
+	python3 "$acd_cli" -v sync										# Syncs with ACD before uploading to make sure we have the most up to date info
+	python3 "$acd_cli" -v upload -x 4 "$local_location"* "$remote_location" 2> >(tee "$log_location" >&2)	# Starts uploading with the locations set at the top of this script
 else
-	"$acd_cli" -v sync                                              				# Syncs with ACD before uploading to make sure we have the most up to date info
-	"$acd_cli" -v upload -x 4 "$local_location"* "$remote_location"       				# Starts uploading with the locations set at the top of this script
+	python3 "$acd_cli" -v sync                                              				# Syncs with ACD before uploading to make sure we have the most up to date info
+	python3 "$acd_cli" -v upload -x 4 "$local_location"* "$remote_location"       				# Starts uploading with the locations set at the top of this script
 fi
 
 
