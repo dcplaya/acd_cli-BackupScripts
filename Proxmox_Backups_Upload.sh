@@ -42,7 +42,7 @@ find $backups -type f -name '*' -print0 | while IFS= read -r -d '' file; do
 		
 		# Start uploading all the VM files to the respective VM folders
 		printf '%s\n' "[INFO] - File size $actualsizeGB GB < $maxsizeGB GB"
-		python4 $acd_cli upload $file /Proxmox/Backups/$vm_number/
+		python3 $acd_cli upload $file /Proxmox/Backups/$vm_number/
 	else
 		printf '%s\n' "[WARNING] - File size larger than specified"
 	fi
