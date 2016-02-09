@@ -9,13 +9,13 @@ verbose=true
 acd_cli=/home/drew/acd_cli/acd_cli.py
 
 #Set local location of files to upload. Everything in this folder will be uploaded but no the folder itself
-local_location=/mnt/ERLBackups/erl/commits/
+local_location=/mnt/ERLBackups/freenas/
 
 #Set remote location on ACD
-remote_location=/ERL/Commits/
+remote_location=/FreeNAS/Config/
 
 #Set location of where to store log file as well as the name
-log_location=/home/drew/acd_cli-BackupScripts/ERLCommits_Upload.log
+log_location=/home/drew/acd_cli-BackupScripts/FreeNASConfig_Upload.log
 
 
 
